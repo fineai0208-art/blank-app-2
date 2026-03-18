@@ -158,12 +158,13 @@ kpi_cols = st.columns(6)
 for i, (p, meta) in enumerate(POLLUTANTS.items()):
     mean_val = dff[p].mean()
     g_name, g_color = get_grade(mean_val, meta['grades']) if not np.isnan(mean_val) else ("N/A","#64748b")
+    mean_str = f"{mean_val:.3f}" if mean_val < 1 else f"{mean_val:.1f}"
     with kpi_cols[i]:
         st.markdown(f"""
         <div class="kpi-card">
           <div class="kpi-label">{meta['label'].split('(')[0].strip()}</div>
           <div class="kpi-value" style="color:{g_color}">
-            {mean_val:.3f if mean_val < 1 else f'{mean_val:.1f}'}
+            {mean_str}
           </div>
           <div class="kpi-unit">{meta['unit']} · {g_name}</div>
         </div>
@@ -537,12 +538,13 @@ with tab5:
         for i, (p, meta) in enumerate(POLLUTANTS.items()):
             mv = station_df[p].mean()
             g_name, g_color = get_grade(mv, meta['grades']) if not np.isnan(mv) else ("N/A","#64748b")
+            mv_str = f"{mv:.3f}" if mv < 1 else f"{mv:.1f}"
             with kk[i]:
                 st.markdown(f"""
                 <div class="kpi-card">
                   <div class="kpi-label">{meta['label'].split('(')[0].strip()}</div>
                   <div class="kpi-value" style="color:{g_color}">
-                    {mv:.3f if mv < 1 else f'{mv:.1f}'}
+                    {mv_str}
                   </div>
                   <div class="kpi-unit">{g_name}</div>
                 </div>
