@@ -76,9 +76,12 @@ PLOTLY_PAPER_BG = "#0f172a"
 PLOTLY_PLOT_BG  = "#1e293b"
 
 # ── 데이터 로드 ───────────────────────────────────────────────────────────────
+import os
+DATA_PATH = os.path.join(os.path.dirname(__file__), '202501-air.csv')
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv('/mnt/user-data/uploads/202501-air.csv')
+    df = pd.read_csv(DATA_PATH)
     df['시도'] = df['지역'].str.split(' ').str[0]
     ts = df['측정일시'].astype(str).str.zfill(10)
     df['날짜']  = pd.to_datetime(ts.str[:8], format='%Y%m%d')
